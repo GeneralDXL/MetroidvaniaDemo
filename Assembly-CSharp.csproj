@@ -62,23 +62,33 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scipts\Player_States\Player_IdleState.cs" />
-    <Compile Include="Assets\Scipts\ParallaxBackground.cs" />
-    <Compile Include="Assets\Scipts\StateMachine.cs" />
+    <Compile Include="Assets\Scipts\Enemy_States\Enemy_GroundedState.cs" />
+    <Compile Include="Assets\Scipts\Entity_AnimationTriggers.cs" />
     <Compile Include="Assets\Scipts\Player_States\Player_WallSlideState.cs" />
-    <Compile Include="Assets\Scipts\Player_States\Player_AnimationTriggers.cs" />
+    <Compile Include="Assets\Scipts\StateMachines\PlayerState.cs" />
+    <Compile Include="Assets\Scipts\Enemy_States\Enemy_AttackState.cs" />
+    <Compile Include="Assets\Scipts\Parallax\ParallaxLayer.cs" />
     <Compile Include="Assets\Scipts\Player_States\Player_AiredState.cs" />
     <Compile Include="Assets\Scipts\Player_States\Player_JumpAttackState.cs" />
+    <Compile Include="Assets\Scipts\Entities\Enemy_Skeleton.cs" />
     <Compile Include="Assets\Scipts\Player_States\Player_JumpState.cs" />
-    <Compile Include="Assets\Scipts\Player.cs" />
+    <Compile Include="Assets\Scipts\Parallax\ParallaxBackground.cs" />
     <Compile Include="Assets\Scipts\Player_States\Player_BasicAttackState.cs" />
-    <Compile Include="Assets\Scipts\ParallaxLayer.cs" />
+    <Compile Include="Assets\Scipts\Enemy_States\Enemy_MoveState.cs" />
+    <Compile Include="Assets\Scipts\StateMachines\StateMachine.cs" />
+    <Compile Include="Assets\Scipts\Entities\Entity.cs" />
+    <Compile Include="Assets\Scipts\StateMachines\EntityState.cs" />
+    <Compile Include="Assets\Scipts\Entities\Enemy.cs" />
     <Compile Include="Assets\Scipts\Player_States\Player_GroundedState.cs" />
-    <Compile Include="Assets\Scipts\EntityState.cs" />
+    <Compile Include="Assets\Scipts\Enemy_States\Enemy_BattleState.cs" />
     <Compile Include="Assets\Scipts\Player_States\Player_WallJumpState.cs" />
     <Compile Include="Assets\Scipts\Player_States\Player_DashState.cs" />
+    <Compile Include="Assets\Scipts\Entities\Player.cs" />
     <Compile Include="Assets\InputSystem\PlayerInputSet.cs" />
     <Compile Include="Assets\Scipts\Player_States\Player_FallState.cs" />
     <Compile Include="Assets\Scipts\Player_States\Player_MoveState.cs" />
+    <Compile Include="Assets\Scipts\StateMachines\EnemyState.cs" />
+    <Compile Include="Assets\Scipts\Enemy_States\Enemy_IdleState.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

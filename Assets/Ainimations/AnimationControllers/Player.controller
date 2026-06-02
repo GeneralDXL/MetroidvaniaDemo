@@ -539,7 +539,7 @@ BlendTree:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Blend Tree
+  m_Name: Jump/Fall
   m_Childs:
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 96f4d348a78d24b4ea4a767e1102cc28, type: 2}
