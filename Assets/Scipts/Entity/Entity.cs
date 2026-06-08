@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 public class Entity : MonoBehaviour
 {
     public event Action OnFlipped;
     protected StateMachine stateMachine;
     public Animator anim { get; private set; }
     public Rigidbody2D rb { get; private set; }
+    public Entity_Stats stats { get; private set; }
 
     public int facingDir { get; private set; } = 1;
 
@@ -25,7 +27,7 @@ public class Entity : MonoBehaviour
     
     private bool isKnockback;
     private Coroutine knockBackCo;
-
+    private Coroutine slowdownCo;
 
     public void ReceiveKnockback(Vector2 knockForce,float duration)
     {
@@ -49,6 +51,7 @@ public class Entity : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
         stateMachine = new StateMachine();
+        stats=GetComponent<Entity_Stats>();
 
     }
 
@@ -74,7 +77,17 @@ public class Entity : MonoBehaviour
         HandleFlip(xVelocity);
     }
 
-    
+    public virtual void SlowdonwnEntity(float duration,float slowMultiplier)
+    {
+        if(slowdownCo != null)
+            StopCoroutine(slowdownCo);
+        slowdownCo=StartCoroutine(SlowEntityCo(duration, slowMultiplier));
+    }
+
+    protected virtual IEnumerator SlowEntityCo(float duration,float slowMultiplier)
+    {
+        yield return null;
+    }
     private void HandleCollisionDetected()
     {
         isGroundDetected = Physics2D.Raycast(grounCheck.transform.position, Vector2.down, groundCheckDistance, whatIsGround);

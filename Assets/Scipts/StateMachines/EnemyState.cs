@@ -8,6 +8,7 @@ public class EnemyState : EntityState
         this.enemy = enemy;
         anim=enemy.anim;
         rb=enemy.rb;
+        stats=enemy.stats;
     }
    
 

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Enemy : Entity
@@ -36,7 +37,24 @@ public class Enemy : Entity
         this.canBeStunned = canBeStunned;
     }
 
-    
+    protected override IEnumerator SlowEntityCo(float duration, float slowMultiplier)
+    {
+        float originalMoveSpeed = moveSpeed;
+        float originalChaseSpeed = chaseSpeed;
+        float originalAnimSpeed = anim.speed;
+
+        float speedMultiplier = 1 - slowMultiplier;
+
+        moveSpeed*=speedMultiplier;
+        chaseSpeed*=speedMultiplier;
+        anim.speed*=speedMultiplier;
+
+        yield return new WaitForSeconds(duration);
+        moveSpeed =originalMoveSpeed;
+        chaseSpeed =originalChaseSpeed;
+        anim.speed = originalAnimSpeed;
+
+    }
     public void TryEnterBattleState(Transform player)
     {
         this.player = player;
