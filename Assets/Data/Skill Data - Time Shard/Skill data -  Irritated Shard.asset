@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b20bcdea8330ee438dd3c42b66da260, type: 3}
+  m_Name: Skill data -  Irritated Shard
+  m_EditorClassIdentifier: 
+  cost: 2
+  skillType: 2
+  isUnlockedByDefault: 0
+  upgradeData:
+    cooldown: 4
+    upgradeType: 7
+    damageScale:
+      physical: 0
+      elemental: 1.5
+      burnDuration: 3
+      burnDamageScale: 1.5
+      chillDuration: 3
+      chillSlowMultiplier: 0.3
+      electrifyDuration: 3
+      electrifyDamageScale: 1.5
+      electrifyCharge: 0.4
+  icon: {fileID: -622362385, guid: 2d11ef523cc7cfb4fa2f046dad490dcb, type: 3}
+  displayName: Irritated Shard
+  description: Shard will movw towards closest enemy.

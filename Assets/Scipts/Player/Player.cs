@@ -6,6 +6,11 @@ using UnityEngine;
 public class Player : Entity
 {
     public static event Action PlayerOnDeath;
+    public Player_SkillManager skillManager;
+    public Player_VFX vfx;
+    private UI ui;
+
+    #region States
     public Player_IdleState idleState { get; private set; }
     public Player_MoveState moveState { get; private set; }
     public Player_JumpState jumpState { get; private set; }
@@ -17,6 +22,7 @@ public class Player : Entity
     public Player_JumpAttackState jumpAttackState { get; private set; }
     public Player_DeadState deadState { get; private set; }
     public Player_CounterAttackState counterAttackState { get; private set; }
+    #endregion
     public PlayerInputSet input { get; private set; }
     public Vector2 moveInput { get; private set; }
 
@@ -42,6 +48,8 @@ public class Player : Entity
     {
         base.Awake();
         input = new PlayerInputSet();
+        skillManager = GetComponent<Player_SkillManager>();
+        #region Initialize States
         idleState = new Player_IdleState(this, stateMachine, "idle");
         moveState = new Player_MoveState(this, stateMachine, "move");
         jumpState = new Player_JumpState(this, stateMachine, "jumpFall");
@@ -53,6 +61,9 @@ public class Player : Entity
         jumpAttackState = new Player_JumpAttackState(this, stateMachine, "jumpAttack");
         deadState = new Player_DeadState(this, stateMachine, "dead");
         counterAttackState = new Player_CounterAttackState(this, stateMachine, "counter");
+        #endregion
+        ui = FindAnyObjectByType<UI>();
+        vfx = GetComponent<Player_VFX>();
     }
 
     protected override void Start()
@@ -60,7 +71,7 @@ public class Player : Entity
         base.Start();
         stateMachine.Initialize(idleState);
     }
-
+    public void Teleport(Vector3 newPosition) => transform.position = newPosition;
     protected override IEnumerator SlowEntityCo(float duration, float slowMultiplier)
     {
         float originalMoveSpeed = moveSpeed;
@@ -115,6 +126,8 @@ public class Player : Entity
         input.Enable();
         input.Player.Move.performed += ctx => moveInput = ctx.ReadValue<Vector2>();
         input.Player.Move.canceled += xtx => moveInput = new Vector2(0, 0);
+        input.Player.ToggleSkillTreeUI.performed += ctx => ui.ToggleSkillTree();
+        input.Player.Spell.performed += ctx => skillManager.shard.TryUseSkill();
     }
 
     private void OnDisable()

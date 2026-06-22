@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Entity_VFX : MonoBehaviour
 {
-    private SpriteRenderer sr;
+    protected SpriteRenderer sr;
     private Entity entity;
     [Header("VFX details")]
     [SerializeField] private float VfxDuration = .15f;
@@ -61,23 +61,18 @@ public class Entity_VFX : MonoBehaviour
         }
         sr.color = Color.white;
     }
-    public void UpdateOnHitColor(ElementType type)
+    public Color GetElementColor(ElementType type)
     {
         switch (type)
         {
             case ElementType.Ice:
-                hitVfxColor = chillVfxColor;
-                break;
+                return chillVfxColor;
             case ElementType.Fire:
-                hitVfxColor = burnVfxColor;
-                break;
+                return burnVfxColor;
             case ElementType.Lightning:
-                hitVfxColor=electrifyVfxColor; 
-                break;
+                return electrifyVfxColor; 
             default:
-                hitVfxColor = originalVfxColor;
-                break;
-
+                return originalVfxColor;
         }
     }
 
@@ -87,11 +82,11 @@ public class Entity_VFX : MonoBehaviour
         sr.color = Color.white ;
         sr.material=originalMaterial;
     }
-    public void CreateOnHitVFX(Transform target, bool isCrit)
+    public void CreateOnHitVFX(Transform target, bool isCrit,ElementType type)
     {
         GameObject Prefab = isCrit ? onCritVfx : onHitVfx;
         GameObject vfx = Instantiate(Prefab, target.position, Quaternion.identity);
-        vfx.GetComponentInChildren<SpriteRenderer>().color = hitVfxColor;
+    //    vfx.GetComponentInChildren<SpriteRenderer>().color = GetElementColor(type);
         if (isCrit && entity.facingDir == -1)
             vfx.transform.Rotate(0, 180, 0);
     }

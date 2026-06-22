@@ -1,9 +1,11 @@
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class PlayerState :EntityState
 {
     protected Player player;
     protected PlayerInputSet input;
+    protected Player_SkillManager skillManager;
     public PlayerState(Player player,StateMachine stateMachine, string animBoolName):base(stateMachine, animBoolName)
     {
         this.player = player;
@@ -11,6 +13,7 @@ public class PlayerState :EntityState
         rb=player.rb;
         input=player.input;
         stats = player.stats;
+        skillManager =player.skillManager;
     }
 
 
@@ -18,7 +21,10 @@ public class PlayerState :EntityState
     {
         base.Update();
         if (input.Player.Dash.WasPressedThisFrame() && CanDash())
+        {
             stateMachine.ChangeState(player.dashState);
+            skillManager.dash.SetSkillOnCooldown();
+        }
 
     }
 
@@ -29,7 +35,10 @@ public class PlayerState :EntityState
     }
     private bool CanDash()
     {
-        if(stateMachine.currentState == player.dashState)
+        if (!skillManager.dash.CanUseSkill())
+            return false;
+        
+        if (stateMachine.currentState == player.dashState)
             return false;
         if(player.isWallDetected)
             return false;

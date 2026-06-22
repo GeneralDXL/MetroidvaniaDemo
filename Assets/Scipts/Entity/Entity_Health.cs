@@ -36,12 +36,14 @@ public class Entity_Health : MonoBehaviour , IDamagable
     {
         if (isDead) return false;
         if(isEvaded()) return false;
+        float finalDamage =damage+elementalDamage;
         Entity_Stats dealStats=dealer.GetComponent<Entity_Stats>();
-
-        float physicalDamageTaken = damage *(1- stats.GetArmorMitigation(dealStats.offense.armorReduction.GetBaseValue()));
-        float elementalDamageTaken = elementalDamage * (1 - stats.GetElementResistance(type));
-        float finalDamage = physicalDamageTaken + elementalDamage;
-
+        if (dealStats != null)
+        {
+            float physicalDamageTaken = damage * (1 - stats.GetArmorMitigation(dealStats.offense.armorReduction.GetBaseValue()));
+            float elementalDamageTaken = elementalDamage * (1 - stats.GetElementResistance(type));
+            finalDamage = physicalDamageTaken + elementalDamage;
+        }
         entity?.ReceiveKnockback(GetKnockForce(finalDamage, dealer), GetDuration(finalDamage));
         ReduceHealth(finalDamage);
         return true;
@@ -73,6 +75,14 @@ public class Entity_Health : MonoBehaviour , IDamagable
     {
         return Random.Range(0, 100) < stats.GetEvasion();
     }
+
+    public float GetHealthPercent() => currentHealth / stats.GetMaxHealth();
+
+    public void SetHealthToPercentage(float percentage)
+    {
+        currentHealth = stats.GetMaxHealth() * Mathf.Clamp01(percentage);
+        UpdateHealthbar();
+    }
     private void UpdateHealthbar()
     {
         healthbar.value = currentHealth / stats.GetMaxHealth();
@@ -88,10 +98,9 @@ public class Entity_Health : MonoBehaviour , IDamagable
     public void ReduceHealth(float damage)
     {
         entityVfx?.PlayOnDamageVfx();
+        currentHealth-= damage;
         if (currentHealth <= 0)
             Die();
-        else
-            currentHealth-= damage;
         UpdateHealthbar();
     }
 

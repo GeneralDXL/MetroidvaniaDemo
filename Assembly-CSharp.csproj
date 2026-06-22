@@ -61,11 +61,13 @@
     <Analyzer Include="D:\DevelopesKits\Unity\Hub\Editer\6000.0.38f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scipts\Enum\SkillType.cs" />
     <Compile Include="Assets\Scipts\Entity\Entity_AnimationTriggers.cs" />
     <Compile Include="Assets\Scipts\StatSystem\Stat_SetUpSO.cs" />
     <Compile Include="Assets\Scipts\Player\Player_Combat.cs" />
     <Compile Include="Assets\Scipts\Player\Player_States\Player_DeadState.cs" />
     <Compile Include="Assets\Scipts\Entity\Entity_VFX.cs" />
+    <Compile Include="Assets\Scipts\UI\UI.cs" />
     <Compile Include="Assets\Scipts\Entity\Entity_StatusHandler.cs" />
     <Compile Include="Assets\Scipts\Player\Player_States\Player_IdleState.cs" />
     <Compile Include="Assets\Scipts\Enemy\Enemy_States\Enemy_BattleState.cs" />
@@ -74,6 +76,7 @@
     <Compile Include="Assets\Scipts\Enemy\Enemy_States\Enemy_StunnedState.cs" />
     <Compile Include="Assets\Scipts\InteractiveObjects\Object_Buff.cs" />
     <Compile Include="Assets\Scipts\Player\Player_States\Player_CounterAttackState.cs" />
+    <Compile Include="Assets\Scipts\UI\UI_SkillTree.cs" />
     <Compile Include="Assets\Scipts\Enemy\Enemy_Health.cs" />
     <Compile Include="Assets\Scipts\StatSystem\Stat_OffenseGroup.cs" />
     <Compile Include="Assets\Scipts\StatSystem\Stat_ResourceGroup.cs" />
@@ -84,31 +87,48 @@
     <Compile Include="Assets\Scipts\InteractiveObjects\Object_Chest.cs" />
     <Compile Include="Assets\Scipts\Player\Player_States\Player_FallState.cs" />
     <Compile Include="Assets\Scipts\Parallax\ParallaxLayer.cs" />
+    <Compile Include="Assets\Scipts\UI\UI_SkillToolTip.cs" />
+    <Compile Include="Assets\Scipts\UI\UI_ToopTip.cs" />
+    <Compile Include="Assets\Scipts\UI\UI_TreeNodeConnection.cs" />
     <Compile Include="Assets\Scipts\Player\Player_States\Player_DashState.cs" />
     <Compile Include="Assets\Scipts\Enemy\Enemy.cs" />
     <Compile Include="Assets\Scipts\Enemy\Enemy_States\Enemy_GroundedState.cs" />
+    <Compile Include="Assets\Scipts\SkillSystem\Skill_Dash.cs" />
     <Compile Include="Assets\Scipts\Interface\ICounterable.cs" />
     <Compile Include="Assets\Scipts\Parallax\ParallaxBackground.cs" />
+    <Compile Include="Assets\Scipts\SkillSystem\Skill_Base.cs" />
     <Compile Include="Assets\Scipts\StatSystem\Stat_MajorGroup.cs" />
+    <Compile Include="Assets\Scipts\Enum\SkillUpgradeType.cs" />
     <Compile Include="Assets\Scipts\Player\Player_States\Player_JumpAttackState.cs" />
     <Compile Include="Assets\Scipts\StateMachines\StateMachine.cs" />
+    <Compile Include="Assets\Scipts\SkillSystem\SkillObject_Shard.cs" />
     <Compile Include="Assets\Scipts\Player\Player_States\Player_BasicAttackState.cs" />
     <Compile Include="Assets\Scipts\Entity\Entity_Health.cs" />
+    <Compile Include="Assets\Scipts\UI\UI_TreeNode.cs" />
     <Compile Include="Assets\Scipts\Player\Player_States\Player_MoveState.cs" />
     <Compile Include="Assets\Scipts\Enemy\Enemy_VFX.cs" />
     <Compile Include="Assets\Scipts\Interface\IDamagable.cs" />
     <Compile Include="Assets\Scipts\StateMachines\EntityState.cs" />
+    <Compile Include="Assets\Scipts\SkillSystem\SkillObject_Base.cs" />
     <Compile Include="Assets\Scipts\Player\Player_States\Player_WallSlideState.cs" />
+    <Compile Include="Assets\Scipts\Data\ElementalEffectData.cs" />
     <Compile Include="Assets\Scipts\Player\Player_States\Player_AiredState.cs" />
+    <Compile Include="Assets\Scipts\Data\DamageScaleData.cs" />
+    <Compile Include="Assets\Scipts\Player\Player_VFX.cs" />
     <Compile Include="Assets\Scipts\StatSystem\Stat_DefenseGroup.cs" />
+    <Compile Include="Assets\Scipts\Player\Player_SkillManager.cs" />
     <Compile Include="Assets\Scipts\Enum\ElementType.cs" />
     <Compile Include="Assets\Scipts\Enemy\Enemy_Skeleton.cs" />
     <Compile Include="Assets\Scipts\Entity\Entity_Combat.cs" />
+    <Compile Include="Assets\Scipts\SkillSystem\Skill_DataSo.cs" />
+    <Compile Include="Assets\Scipts\SkillSystem\Skill_Shard.cs" />
     <Compile Include="Assets\InputSystem\PlayerInputSet.cs" />
     <Compile Include="Assets\Scipts\Entity\Entity_Stats.cs" />
+    <Compile Include="Assets\Scipts\Data\AttackData.cs" />
     <Compile Include="Assets\Scipts\Player\Player.cs" />
     <Compile Include="Assets\Scipts\Enum\StatType.cs" />
     <Compile Include="Assets\Scipts\Enemy\Enemy_AnimationTirggers.cs" />
+    <Compile Include="Assets\Scipts\UI\UI_TreeConnectionHandler.cs" />
     <Compile Include="Assets\Scipts\StateMachines\EnemyState.cs" />
     <Compile Include="Assets\Scipts\Player\Player_States\Player_WallJumpState.cs" />
     <Compile Include="Assets\Scipts\UI\MiniHealthbar.cs" />
@@ -116,6 +136,31 @@
     <Compile Include="Assets\Scipts\Enemy\Enemy_States\Enemy_IdleState.cs" />
     <Compile Include="Assets\Scipts\Player\Player_States\Player_JumpState.cs" />
     <Compile Include="Assets\Scipts\Enemy\Enemy_States\Enemy_DeadState.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\SDFFunctions.hlsl" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
+    <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
+    <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
