@@ -1,3 +1,4 @@
+
 using UnityEngine;
 
 public class Entity_Stats : MonoBehaviour
@@ -17,7 +18,7 @@ public class Entity_Stats : MonoBehaviour
         float baseHp = resouces.maxHealth.GetBaseValue();
         float bonusHp = major.vitality.GetBaseValue() * 5;
         float finalHp = baseHp + bonusHp;
-        return finalHp;
+        return Mathf.Round(finalHp * 100f) / 100f;
     }
     public float GetEvasion()
     {
@@ -26,14 +27,11 @@ public class Entity_Stats : MonoBehaviour
         float totalEvasion = baseEvasion + bonusEvasion;
         float maxEvasion = 85;
         float fianalEvasion = Mathf.Clamp(totalEvasion, 0, maxEvasion);
-        return fianalEvasion;
+        return Mathf.Round(fianalEvasion * 100f) / 100f;
     }
-
     public float GetArmorMitigation(float armorReduction)
     {
-        float baseArmor = defense.armor.GetBaseValue();
-        float bonusArmor = major.vitality.GetBaseValue();
-        float totalArmor = baseArmor + bonusArmor;
+        float totalArmor = GetArmor();
 
         float armormultiplier = Mathf.Clamp01(1 - armorReduction);
         float finalArmor = totalArmor * armormultiplier;
@@ -42,7 +40,15 @@ public class Entity_Stats : MonoBehaviour
         float maxMitigation = 0.85f;
 
         float finalMitigation = Mathf.Clamp(mitigaiton, 0, maxMitigation);
-        return finalMitigation;
+        return Mathf.Round(finalMitigation * 10000f) / 10000f;
+    }
+
+    public float GetArmor()
+    {
+        float baseArmor = defense.armor.GetBaseValue();
+        float bonusArmor = major.vitality.GetBaseValue();
+        float totalArmor = baseArmor + bonusArmor;
+        return Mathf.Round(totalArmor * 100f) / 100f;
     }
 
     public float GetElementResistance(ElementType type)
@@ -62,7 +68,7 @@ public class Entity_Stats : MonoBehaviour
         }
         float maxRes = 75;
         float finalRes = Mathf.Clamp(resistrance, 0, maxRes);
-        return finalRes / 100;
+        return Mathf.Round(finalRes) / 100f;
     }
     public float GetElementalDamage(out ElementType type, float scale = 1f)
     {
@@ -99,22 +105,41 @@ public class Entity_Stats : MonoBehaviour
             return 0;
         }
         float finalDamage = hightestDamage + bonusElementalDamage;
-        return finalDamage * scale;
+        return Mathf.Round(finalDamage * scale * 100f) / 100f;
     }
     public float GetArmorReduction() => offense.armorReduction.GetBaseValue() / 100;
     public float GetPhysicalDamage(out bool isCrit, float scale = 1f)
     {
+        float finalDamage = GetBasicPhysicalDamage();
+
+        isCrit = Random.Range(0, 100) < GetCritChance();
+        float finalCritpower = GetCritPower();
+
+        return Mathf.Round((isCrit ? finalCritpower * finalDamage : finalDamage) * scale * 100f) / 100f;
+    }
+
+    public float GetBasicPhysicalDamage()
+    {
         float baseDamage = offense.damage.GetBaseValue();
         float bonusDamage = major.strength.GetBaseValue();
         float finalDamage = baseDamage + bonusDamage;
+        return Mathf.Round(finalDamage * 100f) / 100f;
+    }
 
-        isCrit = Random.Range(0, 100) < offense.cirtChance.GetBaseValue();
+    public float GetCritPower()
+    {
         float baseCritPower = offense.critPower.GetBaseValue();
         float bonusCritPower = major.strength.GetBaseValue() * 0.5f;
         float finalCritpower = (baseCritPower + bonusCritPower) / 100;
-
-        return (isCrit ? finalCritpower * finalDamage : finalDamage) * scale;
+        return Mathf.Round(finalCritpower * 10000f) / 10000f;
     }
+
+    public float GetCritChance()
+    {
+        float raw = offense.cirtChance.GetBaseValue() + major.agility.GetBaseValue() * 0.3f;
+        return Mathf.Round(raw * 100f) / 100f;
+    }
+
 
     public Stat GetStatByType(StatType type)
     {
@@ -147,7 +172,65 @@ public class Entity_Stats : MonoBehaviour
             default: return null;
         }
     }
+    public static string GetStatNameByType(StatType type)
+    {
+        switch (type)
+        {
+            case StatType.MaxHealth: return "Max Health";
+            case StatType.HealthRegen: return "Health Regon";
 
+            case StatType.Agility: return "Agility";
+            case StatType.Intelligence: return "Intelligence";
+            case StatType.Vitality: return "Vitality";
+            case StatType.Strength: return "Strength";
+
+            case StatType.Damage: return "Damage";
+            case StatType.AttackSpeed: return "Attack Speed";
+            case StatType.CritPower: return "CritPower";
+            case StatType.CritChance: return "Crit Chance";
+            case StatType.ArmorReduction: return "Armor Reduction";
+
+            case StatType.IceDamage: return "Ice Damage";
+            case StatType.FireDamage: return "Fire Damage";
+            case StatType.LightningDamage: return "Lightning Damage";
+            case StatType.ElementalDamage:return "Elemental Damage";
+
+            case StatType.Armor: return "Armor";
+            case StatType.Evasion: return "Evasion";
+
+            case StatType.FireResistance: return "Fire Resistance";
+            case StatType.LightningResistance: return "Lightning Resistance";
+            case StatType.IceResistance: return "Ice Resistance";
+            default: return "";
+        }
+    }
+
+    public static bool IsPercentageStat(StatType type)
+    {
+        switch (type)
+        {
+            case StatType.CritChance:
+            case StatType.CritPower:
+            case StatType.ArmorReduction:
+            case StatType.AttackSpeed:
+            case StatType.IceResistance:
+            case StatType.FireResistance:
+            case StatType.LightningResistance:
+            case StatType.Evasion:
+                return true;
+            default: return false;
+        }
+    }
+
+    public static float GetStatValueForUI(EffectModifier mod)
+    {
+        switch (mod.statType)
+        {
+            case StatType.AttackSpeed:
+                return mod.value * 100;
+            default: return mod.value;
+        }
+    }
     [ContextMenu("Update Default Stat Setup")]
     public void ApplyDefaultStatSetup()
     {
@@ -178,4 +261,5 @@ public class Entity_Stats : MonoBehaviour
         defense.lightningRes.SetBaseValue(defaultStatSetup.lightningResistance);
 
     }
+
 }

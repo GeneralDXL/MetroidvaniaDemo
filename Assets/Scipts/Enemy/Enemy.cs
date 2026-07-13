@@ -10,6 +10,13 @@ public class Enemy : Entity
     public Enemy_DeadState deadState;
     public Enemy_StunnedState stunnedState;
 
+    public Entity_Stats stats { get; private set; }
+
+    protected override void Awake()
+    {
+        stats = GetComponent<Entity_Stats>();
+    }
+
     [Header("Movement details")]
     public float moveSpeed = 1.4f;
     public float moveAnimSpeedMultiplier = 1;
@@ -79,6 +86,7 @@ public class Enemy : Entity
 
     public override void Die()
     {
+        base.Die();
         stateMachine.ChangeState(deadState);
     }
     protected override void OnDrawGizmos()

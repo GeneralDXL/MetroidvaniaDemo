@@ -8,6 +8,8 @@ public class Stat
     [SerializeField]private List<StatModifier> modifiers=new List<StatModifier>();
     private float finalValue;
     private bool needToRecaculate=true;
+
+    public event Action OnStatChanged;
     public float GetBaseValue()
     {
         if (needToRecaculate)
@@ -34,7 +36,8 @@ public class Stat
         finalValue = baseValue;
         foreach (var mod in modifiers)
             finalValue += mod.value;
-        return finalValue;
+        // 消除浮点累加噪声，保留4位小数精度
+        return Mathf.Round(finalValue * 10000f) / 10000f;
     }
     public void SetBaseValue(float value) => baseValue = value;
 }

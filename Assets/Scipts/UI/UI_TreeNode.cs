@@ -51,11 +51,11 @@ public class UI_TreeNode : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     }
     public void Refound()
     {
+        if (isUncloked)
+            skillTree.AddPoints(skillCost);
         isUncloked = false;
         isLockedOut = false;
         UpdateColor(HexToColor(lockedColorHex));
-
-        skillTree.AddPoints(skillCost);
         connectionHandler.UnlockConnectionImage(false);
     }
     private void UpdateColor(Color color)

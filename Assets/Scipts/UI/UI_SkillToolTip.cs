@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class UI_SkillToolTip : UI_ToopTip
 {
-    private UI ui;
     private UI_SkillTree skillTree;
     [SerializeField] private TextMeshProUGUI skillName;
     [SerializeField] private TextMeshProUGUI skillDescription;
@@ -22,7 +21,6 @@ public class UI_SkillToolTip : UI_ToopTip
     protected override void Awake()
     {
         base.Awake();
-        ui = GetComponentInParent<UI>();
         skillTree=ui.GetComponentInChildren<UI_SkillTree>(true);
     }
 

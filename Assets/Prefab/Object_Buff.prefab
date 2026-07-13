@@ -46,14 +46,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed23584251394214c8da01ce2462a84b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  buffs:
-  - type: 6
-    value: 2
-  - type: 7
-    value: 100
-  buffDuration: 4
+  effects:
+  - {fileID: 11400000, guid: 37df87576a6e8f4428706bf07fa31dbc, type: 2}
   canBeUsed: 1
-  buffName: Damage Buff
   floatSpeed: 1
   floatRange: 0.2
 --- !u!61 &7127573711523936305

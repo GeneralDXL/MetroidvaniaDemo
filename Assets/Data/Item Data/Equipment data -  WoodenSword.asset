@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c81614472b3345408faa210e7a07275, type: 3}
+  m_Name: Equipment data -  WoodenSword
+  m_EditorClassIdentifier: 
+  itemName: Wooden Sword
+  itemIcon: {fileID: 1757610793, guid: 2d11ef523cc7cfb4fa2f046dad490dcb, type: 3}
+  itemType: 1
+  maxStackSize: 1
+  itemInfo: 'A sword made of wood.
+
+    Its damage is so low......'
+  modifiers:
+  - statType: 7
+    value: 5
+  - statType: 0
+    value: 5
+  - statType: 1
+    value: 5
+  - statType: 2
+    value: 5
+  - statType: 4
+    value: 5
+  - statType: 5
+    value: 5
+  - statType: 6
+    value: 5
+  - statType: 8
+    value: 5
+  - statType: 9
+    value: 5
+  - statType: 10
+    value: 5
+  - statType: 11
+    value: 5
+  - statType: 12
+    value: 5
+  - statType: 13
+    value: 5
+  - statType: 14
+    value: 5
+  - statType: 15
+    value: 5
+  - statType: 16
+    value: 5
+  - statType: 17
+    value: 5
+  - statType: 18
+    value: 5
+  - statType: 3
+    value: 5

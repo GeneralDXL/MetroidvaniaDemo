@@ -7,6 +7,7 @@ public class MiniHealthbar : MonoBehaviour
     private void Awake()
     {
         entity= GetComponentInParent<Entity>();
+        entity.OnEntityDead += HideBar;
     }
     private void OnEnable()
     {
@@ -18,6 +19,10 @@ public class MiniHealthbar : MonoBehaviour
         entity.OnFlipped-= HandleFlip;
     }
 
+    private void HideBar()
+    {
+        gameObject.SetActive(false);
+    }
 
     private void HandleFlip() => transform.rotation = Quaternion.identity;
 }

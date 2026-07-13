@@ -5,10 +5,11 @@ using UnityEngine.UIElements;
 public class Entity : MonoBehaviour
 {
     public event Action OnFlipped;
+    public event Action OnEntityDead;
     protected StateMachine stateMachine;
     public Animator anim { get; private set; }
     public Rigidbody2D rb { get; private set; }
-    public Entity_Stats stats { get; private set; }
+    
 
     public int facingDir { get; private set; } = 1;
 
@@ -51,7 +52,7 @@ public class Entity : MonoBehaviour
         anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
         stateMachine = new StateMachine();
-        stats=GetComponent<Entity_Stats>();
+        
 
     }
 
@@ -131,6 +132,6 @@ public class Entity : MonoBehaviour
     }
     public virtual void Die()
     {
-        
+        OnEntityDead?.Invoke();
     }
 }

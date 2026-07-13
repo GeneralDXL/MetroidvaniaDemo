@@ -3,11 +3,13 @@ using UnityEngine;
 public class UI_ToopTip : MonoBehaviour
 {
     private RectTransform rect;
+    protected UI ui;
     [SerializeField] private Vector2 offset = new Vector2(300, 20);
 
     protected virtual void Awake()
     {
         rect = GetComponent<RectTransform>();
+        ui = GetComponentInParent<UI>();
     }
 
     public virtual void ShowToolTip(bool show, RectTransform targetRect)
@@ -41,7 +43,7 @@ public class UI_ToopTip : MonoBehaviour
 
         rect.position = targetPosition;
     }
-    protected string GetColoredText(string color, string text)
+    public static string GetColoredText(string color, string text)
     {
         return $"<color={color}>{text}</color>";
     }

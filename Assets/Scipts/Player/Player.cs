@@ -10,6 +10,12 @@ public class Player : Entity
     public Player_VFX vfx;
     private UI ui;
 
+    public Player_Health health { get; private set; }
+    public Player_Combat combat {  get; private set; }
+    public Player_Stats stats { get; private set; }
+
+    public Player_EffectManager effectManager { get; private set; }
+
     #region States
     public Player_IdleState idleState { get; private set; }
     public Player_MoveState moveState { get; private set; }
@@ -49,6 +55,10 @@ public class Player : Entity
         base.Awake();
         input = new PlayerInputSet();
         skillManager = GetComponent<Player_SkillManager>();
+        combat=GetComponent<Player_Combat>();
+        health=GetComponent<Player_Health>();
+        stats =GetComponent<Player_Stats>();
+        effectManager = GetComponent<Player_EffectManager>();
         #region Initialize States
         idleState = new Player_IdleState(this, stateMachine, "idle");
         moveState = new Player_MoveState(this, stateMachine, "move");
@@ -104,7 +114,6 @@ public class Player : Entity
     }
     public override void Die()
     {
-        base.Die();
         stateMachine.ChangeState(deadState);
         PlayerOnDeath.Invoke();
     }
@@ -128,6 +137,7 @@ public class Player : Entity
         input.Player.Move.canceled += xtx => moveInput = new Vector2(0, 0);
         input.Player.ToggleSkillTreeUI.performed += ctx => ui.ToggleSkillTree();
         input.Player.Spell.performed += ctx => skillManager.shard.TryUseSkill();
+        input.Player.ToggleInventory.performed += ctx => ui.ToggleInventory();
     }
 
     private void OnDisable()
